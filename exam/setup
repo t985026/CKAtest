@@ -1,0 +1,35 @@
+# F1 Pod Logs (5%)
+kubectl apply -f 
+# F2 Check Ready Node (4%)
+
+# F3 NodeSelector (4%)
+kubectl label node ${cluster}-worker disk=spinning
+
+# F4 CPU (5%)
+kubectl label node ${cluster}-worker2 name=cpu-loader
+
+# F5 Multi-container (4%)
+
+# F6 Sidecar (7%)
+
+# F7
+
+# F8
+
+# F9
+
+# F10
+
+# F11
+
+# F12
+
+# F13
+
+# F14
+
+# F15
+
+# F16
+
+# F17
