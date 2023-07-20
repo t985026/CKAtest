@@ -20,7 +20,7 @@ sudo rm -rf /opt/KUTR00401/KURT00401.txt
 kubectl delete po kucc8
 
 # F6 Sidecar (7%)
-kubectl delete -f https://raw.githubusercontent.com/t985026/CKAtest/main/exam/yaml/F4-pod-sidecar.yaml
+kubectl delete -f https://raw.githubusercontent.com/t985026/CKAtest/main/exam/yaml/F6-pod-sidecar.yaml
 
 # F7
 
