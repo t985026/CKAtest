@@ -10,7 +10,7 @@ kubectl get pod | tail -n +2 | cut -d ' ' -f 1 > rmpod.tmp
 
 while read pod
 do
-  kubectl delete pod ${pod}
+  kubectl delete pod ${pod} --force
 
 done < rmpod.tmp
 rm rmpod.tmp
