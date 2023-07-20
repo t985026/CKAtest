@@ -13,7 +13,7 @@ do
   kubectl delete pod ${pod}
 
 done < rmpod.tmp
-rm getpod.tmp rmpod.tmp
+rm rmpod.tmp
 
 echo 'apiVersion: v1
 kind: Pod
@@ -38,7 +38,7 @@ kubectl apply -f pod-log.yaml
 ### Check Ready Node (4%)
 
 [ ! -d /opt/KUSC00402/ ] && mkdir -p /opt/KUSC00402/
-[ -d /opt/KUSC00402/ ] && rm /opt/KUSC00402/*
+[ -f /opt/KUSC00402/* ] && rm /opt/KUSC00402/*
 echo 'Check Ready Node clear'
 
 ### NodeSelector (4%)
