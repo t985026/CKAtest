@@ -1,17 +1,23 @@
+#!/bin/sh
+sudo chmod -R 757 /opt
+
 # F1 Pod Logs (5%)
-kubectl apply -f 
+kubectl apply -f https://raw.githubusercontent.com/t985026/CKAtest/main/exam/yaml/F1-pod-log.yaml 
+
 # F2 Check Ready Node (4%)
+[ ! -d /opt/KUSC00402 ] && mkdir -p /opt/KUSC00402
 
 # F3 NodeSelector (4%)
 kubectl label node ${cluster}-worker disk=spinning
 
 # F4 CPU (5%)
+[ ! -d /opt/KUTR00401 ] && mkdir -p /opt/KUTR00401
 kubectl label node ${cluster}-worker2 name=cpu-loader
 
 # F5 Multi-container (4%)
 
 # F6 Sidecar (7%)
-
+kubectl apply -f https://raw.githubusercontent.com/t985026/CKAtest/main/exam/yaml/F4-pod-sidecar.yaml
 # F7
 
 # F8
@@ -33,3 +39,6 @@ kubectl label node ${cluster}-worker2 name=cpu-loader
 # F16
 
 # F17
+
+
+sudo chmod -R 757 /opt
