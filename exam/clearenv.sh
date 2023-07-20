@@ -48,7 +48,7 @@ kubectl label node ${cluster}-worker disk=spinning
 kubectl label node ${cluster}-worker2 name=cpu-loader
 
 
-kubectl run cpu1 --image=quay.io/cloudwalker/sre.base --restart=Never --labels=name=cpu-loader -- stress-ng --cpu 2  --timeout 600s
+bash -c "kubectl run cpu1 --image=quay.io/cloudwalker/sre.base --restart=Never --labels=name=cpu-loader -- stress-ng --cpu 2  --timeout 600s"
 
 
 ### Sidecar (7%)
