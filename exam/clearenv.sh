@@ -79,3 +79,15 @@ spec:
 kubectl create -f pod-sidecar.yaml
 
 rm pod-sidecar.yaml
+
+## Deployment 應用 - Scale (4%)
+
+kubectl delete deploy presentation 2> dev/null;
+kubectl delete deploy loadbalance 2> dev/null;
+
+kubectl create deployment presentation --image=registry.k8s.io/echoserver:1.10 --replicas=0 2> dev/null;
+kubectl create deployment loadbalance --image=registry.k8s.io/echoserver:1.10 --replicas=0 2> dev/null;
+
+## cordon & drain (4%)
+kubectl uncordon ${cluster}-worker
+kubectl uncordon ${cluster}-worker2
