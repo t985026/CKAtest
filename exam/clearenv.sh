@@ -46,7 +46,7 @@ kubectl label node ${cluster}-worker disk=spinning
 ### CPU (5%)
 
 kubectl get pods -n kube-system |grep metrics-server
-[ $? != '0' ] && https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/metrics-server.yaml
+[ $? != '0' ] && kubectl apply -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/metrics-server.yaml
 
 [ -d /opt/KUTR00401/ ] && rm /opt/KUTR00401/* && touch /opt/KUTR00401/KURT00401.txt
 kubectl label node ${cluster}-worker2 name=cpu-loader
