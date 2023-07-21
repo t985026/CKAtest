@@ -44,6 +44,10 @@ echo 'Check Ready Node clear'
 ### NodeSelector (4%)
 kubectl label node ${cluster}-worker disk=spinning
 ### CPU (5%)
+
+kubectl get pods -n kube-system |grep metrics-server
+[ $? != '0' ] && kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
 [ -d /opt/KUTR00401/ ] && rm /opt/KUTR00401/* && touch /opt/KUTR00401/KURT00401.txt
 kubectl label node ${cluster}-worker2 name=cpu-loader
 
