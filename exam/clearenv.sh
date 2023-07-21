@@ -34,7 +34,7 @@ spec:
         sleep 10
       done' > pod-log.yaml
 kubectl apply -f pod-log.yaml
-
+rm pod-log.yaml
 ### Check Ready Node (4%)
 
 [ ! -d /opt/KUSC00402/ ] && mkdir -p /opt/KUSC00402/
@@ -77,3 +77,5 @@ spec:
 ' > pod-sidecar.yaml
 
 kubectl create -f pod-sidecar.yaml
+
+rm pod-sidecar.yaml
