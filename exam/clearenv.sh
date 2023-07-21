@@ -10,7 +10,7 @@ kubectl get pod | tail -n +2 | cut -d ' ' -f 1 > rmpod.tmp
 
 while read pod
 do
-  kubectl delete pod ${pod} --force
+  kubectl delete pod ${pod}
 
 done < rmpod.tmp
 rm rmpod.tmp
@@ -34,7 +34,7 @@ spec:
         sleep 10
       done' > pod-log.yaml
 kubectl apply -f pod-log.yaml
-
+rm pod-log.yaml
 ### Check Ready Node (4%)
 
 [ ! -d /opt/KUSC00402/ ] && mkdir -p /opt/KUSC00402/
@@ -44,6 +44,10 @@ echo 'Check Ready Node clear'
 ### NodeSelector (4%)
 kubectl label node ${cluster}-worker disk=spinning
 ### CPU (5%)
+
+kubectl get pods -n kube-system |grep metrics-server
+[ $? != '0' ] && kubectl apply -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/metrics-server.yaml
+
 [ -d /opt/KUTR00401/ ] && rm /opt/KUTR00401/* && touch /opt/KUTR00401/KURT00401.txt
 kubectl label node ${cluster}-worker2 name=cpu-loader
 
@@ -73,3 +77,5 @@ spec:
 ' > pod-sidecar.yaml
 
 kubectl create -f pod-sidecar.yaml
+
+rm pod-sidecar.yaml
