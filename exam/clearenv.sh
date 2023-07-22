@@ -16,25 +16,7 @@ do
 done < rmpod.tmp
 rm rmpod.tmp
 
-echo 'apiVersion: v1
-kind: Pod
-metadata:
-  name: bar
-spec:
-  containers:
-  - name: bar-container
-    image: quay.io/cloudwalker/alpine
-    command: ["/bin/sh"]
-    args:
-    - -c
-    - |
-      mkdir -p /var/log
-      while true;
-      do
-        echo "unable-to-access-website"
-        sleep 10
-      done' > pod-log.yaml
-kubectl apply -f pod-log.yaml
+kubectl apply -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/pod-log.yaml
 rm pod-log.yaml
 ### Check Ready Node (4%)
 
