@@ -16,8 +16,8 @@ do
 done < rmpod.tmp
 rm rmpod.tmp
 
-kubectl apply -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/pod-log.yaml
-rm pod-log.yaml
+kubectl apply -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/F1-pod-log.yaml
+
 ### Check Ready Node (4%)
 
 [ ! -d /opt/KUSC00402/ ] && mkdir -p /opt/KUSC00402/
