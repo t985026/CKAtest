@@ -35,33 +35,12 @@ kubectl get pods -n kube-system |grep metrics-server
 kubectl label node ${cluster}-worker2 name=cpu-loader
 
 
-bash -c "kubectl run cpu1 --image=quay.io/cloudwalker/sre.base --restart=Never --labels=name=cpu-loader -- stress-ng --cpu 2  --timeout 600s"
+kubectl run cpu1 --image=quay.io/cloudwalker/sre.base --restart=Never --labels=name=cpu-loader -- stress-ng --cpu 2  --timeout 600s
 
 
 ### Sidecar (7%)
-echo $'apiVersion: v1
-kind: Pod
-metadata:
-  name: big-corp-app
-spec:
-  containers:
-  - name: pod-sidecar
-    image: quay.io/cloudwalker/alpine
-    command: ["/bin/sh"]
-    args:
-    - -c
-    - |
-      mkdir -p /var/log;i=0;
-      while true;
-      do
-        echo "$(date) INFO $i" >> /var/log/big-corp-app.log;
-        i=$((i+1));sleep 1;
-      done
-' > pod-sidecar.yaml
 
-kubectl create -f pod-sidecar.yaml
-
-rm pod-sidecar.yaml
+kubectl create -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/F6-pod-sidecar.yaml
 
 ## Deployment 應用 - Scale (4%)
 
