@@ -1,6 +1,7 @@
 #!/bin/bash
 cluster=$(kubectl config view |grep 'cluster: ' | cut -d ':' -f 2)
-rm *.yaml && echo 'remove all yaml' 
+[ -f *.yaml ] && rm *.yaml
+echo 'remove all yaml' 
 ### Pod Logs (5%)
 [ ! -d /opt/KUTR00101 ] && mkdir -p /opt/KUTR00101
 [ -f /opt/KUTR00101/bar ] && rm /opt/KUTR00101/*
@@ -15,25 +16,7 @@ do
 done < rmpod.tmp
 rm rmpod.tmp
 
-echo 'apiVersion: v1
-kind: Pod
-metadata:
-  name: bar
-spec:
-  containers:
-  - name: bar-container
-    image: quay.io/cloudwalker/alpine
-    command: ["/bin/sh"]
-    args:
-    - -c
-    - |
-      mkdir -p /var/log
-      while true;
-      do
-        echo "unable-to-access-website"
-        sleep 10
-      done' > pod-log.yaml
-kubectl apply -f pod-log.yaml
+kubectl apply -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/pod-log.yaml
 rm pod-log.yaml
 ### Check Ready Node (4%)
 
@@ -79,3 +62,15 @@ spec:
 kubectl create -f pod-sidecar.yaml
 
 rm pod-sidecar.yaml
+
+## Deployment 應用 - Scale (4%)
+
+kubectl delete deploy presentation 2> dev/null;
+kubectl delete deploy loadbalance 2> dev/null;
+
+kubectl create deployment presentation --image=registry.k8s.io/echoserver:1.10 --replicas=0 2> dev/null;
+kubectl create deployment loadbalance --image=registry.k8s.io/echoserver:1.10 --replicas=0 2> dev/null;
+
+## cordon & drain (4%)
+kubectl uncordon ${cluster}-worker
+kubectl uncordon ${cluster}-worker2
