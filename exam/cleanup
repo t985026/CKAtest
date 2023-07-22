@@ -1,0 +1,45 @@
+#!/bin/bash
+rm *.yaml && echo 'remove all yaml' 
+sudo chmod -R 757 /opt
+[ ! -d /opt/KUTR00101 ] && mkdir -p /opt/KUTR00101
+
+# F1 Pod Logs (5%)
+sudo rm -rf /opt/KUTR00101/*
+kubectl delete -f https://raw.githubusercontent.com/t985026/CKAtest/main/exam/yaml/F1-pod-log.yaml 
+
+# F2 Check Ready Node (4%)
+sudo rm -rf /opt/KUSC00402/kusc00402.txt
+
+# F3 NodeSelector (4%)
+kubectl delete po nginx-kusc00401
+
+# F4 CPU (5%)
+sudo rm -rf /opt/KUTR00401/KURT00401.txt
+
+# F5 Multi-container (4%)
+kubectl delete po kucc8
+
+# F6 Sidecar (7%)
+kubectl delete -f https://raw.githubusercontent.com/t985026/CKAtest/main/exam/yaml/F6-pod-sidecar.yaml
+
+# F7
+
+# F8
+
+# F9
+
+# F10
+
+# F11
+
+# F12
+
+# F13
+
+# F14
+
+# F15
+
+# F16
+
+# F17
