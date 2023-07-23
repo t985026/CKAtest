@@ -2,15 +2,9 @@
 cluster=$(kubectl config view |grep 'cluster: ' | cut -d ':' -f 2)
 alias k='kubectl'
 alias kg='kubectl get'
-alias ke='kubectl edit'
-alias kd='kubectl describe'
-alias kdd='kubectl delete'
+alias kd='kubectl delete'
 alias kgp='kubectl get pods'
 alias kgd='kubectl get deployments'
-alias kns='kubens'
-alias kcx='kubectx'
-alias wkgp='watch kubectl get pod'
-alias cls='clear'
 
 rm *.yaml &>/dev/null
 echo 'remove all yaml' 
