@@ -72,4 +72,7 @@ kubectl create namespace my-app 2>/dev/null;
 kubectl create namespace echo 2>/dev/null;
 
 ## Service (7%)
+kubectl delete deploy front-end 2>/dev/null;
+kubectl delete svc front-end-svc 2>/dev/null;
+
 kubectl create deployment front-end --image=quay.io/cloudwalker/nginx 2>/dev/null;
