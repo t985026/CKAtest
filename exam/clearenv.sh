@@ -35,7 +35,7 @@ kubectl get pods -n kube-system |grep metrics-server
 [ -d /opt/KUTR00401/ ] && rm /opt/KUTR00401/* && touch /opt/KUTR00401/KURT00401.txt
 kubectl label node ${cluster}-worker2 name=cpu-loader
 
-kubectl run cpu1 --image=quay.io/cloudwalker/sre.base --restart=Never --labels=name=cpu-loader -- stress-ng --cpu 2  --timeout 1800s
+kubectl run cpu1 --image=quay.io/cloudwalker/sre.base --restart=Never --labels=name=cpu-loader -- stress-ng --cpu 2  --timeout 2400s
 
 
 ### Sidecar (7%)
