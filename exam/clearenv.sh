@@ -32,6 +32,10 @@ which sudo &>/dev/null
 [[ $? != 0 ]] && apt install sudo
 grep -x '#PermitRootLogin yes' /etc/ssh/sshd_config && echo "PermitRootLogin yes" | tee -a /etc/ssh/sshd_config
 systemctl restart ssh
+grep wk8s-node-0 /etc/hosts &>/dev/null
+[ $? != 0 ] && echo "127.0.0.1       localhost wk8s-node-0" | tee -a /etc/hosts 
+grep ek8s-node-1 /etc/hosts &>/dev/null
+[ $? != 0 ] && echo "172.18.0.3       localhost ek8s-node-1" | tee -a /etc/hosts 
 echo -e \root\\nroot\\n| passwd root &>/dev/null
 systemctl stop kubelet
 
@@ -68,6 +72,7 @@ kubectl create deployment presentation --image=registry.k8s.io/echoserver:1.10 -
 kubectl create deployment loadbalance --image=registry.k8s.io/echoserver:1.10 --replicas=0 2>/dev/null;
 
 ## cordon & drain (4%)
+
 kubectl uncordon ${cluster}-worker
 kubectl uncordon ${cluster}-worker2
 
