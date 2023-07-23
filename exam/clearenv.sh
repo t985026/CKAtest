@@ -64,4 +64,8 @@ echo "127.0.0.1       localhost ek8s-node-1" | tee -a /etc/hosts
 ### Storage PV (7%) 沒前置
 ### NetworkPolicy (7%)
 kubectl create namespace internal 2>/dev/null
+kubectl create namespace my-app 2>/dev/null
+
+## Service (7%)
+kubectl create deployment front-end --image=quay.io/cloudwalker/nginx
 
