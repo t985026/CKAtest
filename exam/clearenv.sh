@@ -1,6 +1,6 @@
 #!/bin/bash
 cluster=$(kubectl config view |grep 'cluster: ' | cut -d ':' -f 2)
-[ -f *.yaml ] && rm *.yaml
+rm *.yaml &>/dev/null
 echo 'remove all yaml' 
 ### Pod Logs (5%)
 [ ! -d /opt/KUTR00101 ] && mkdir -p /opt/KUTR00101
