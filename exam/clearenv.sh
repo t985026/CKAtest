@@ -58,7 +58,6 @@ which ssh sshd &>/dev/null
 apt install sudo
 echo -e \root\\nroot\\n| passwd root &>/dev/null
 systemctl stop kubelet
-systemctl stop kubelet
 
 ### Storage PV (7%) 沒前置
 ### NetworkPolicy (7%)
