@@ -1,0 +1,2 @@
+### Storage PV (7%) 沒前置
+kubectl delete pv app-config 2>/dev/null
