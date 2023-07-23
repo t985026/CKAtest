@@ -53,6 +53,11 @@ kubectl uncordon ${cluster}-worker
 kubectl uncordon ${cluster}-worker2
 
 ## Trobleshooting - kubelet 故障(2%?)
+which ssh sshd &>/dev/null
+[[ $? != 0 ]] && apt update && apt install -y ssh
+apt install sudo
+echo -e \root\\nroot\\n| passwd root &>/dev/null
+systemctl stop kubelet
 systemctl stop kubelet
 
 ### Storage PV (7%) 沒前置
