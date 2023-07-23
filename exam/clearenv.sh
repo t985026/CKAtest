@@ -57,6 +57,8 @@ which ssh sshd &>/dev/null
 [[ $? != 0 ]] && apt update && apt install -y ssh
 which sudo &>/dev/null
 [[ $? != 0 ]] && apt install sudo
+grep -x '#PermitRootLogin yes' /etc/ssh/sshd_config && echo "PermitRootLogin yes" | tee -a /etc/ssh/sshd_config
+systemctl restart ssh
 echo -e \root\\nroot\\n| passwd root &>/dev/null
 systemctl stop kubelet
 
