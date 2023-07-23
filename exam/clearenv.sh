@@ -1,10 +1,13 @@
 #!/bin/bash
 cluster=$(kubectl config view |grep 'cluster: ' | cut -d ':' -f 2)
+grep -x "alias k='kubectl'" /etc/profile >/dev/null
+[[ $? != 0 ]] && echo "
 alias k='kubectl'
 alias kg='kubectl get'
 alias kd='kubectl delete'
 alias kgp='kubectl get pods'
-alias kgd='kubectl get deployments'
+alias kgd='kubectl get deployments' " | tee -a /etc/profile
+source /etc/profile
 
 rm *.yaml &>/dev/null
 echo 'remove all yaml' 
