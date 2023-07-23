@@ -1,6 +1,6 @@
 ## Trobleshooting - kubelet 故障(2%?)
 which ssh &>/dev/null
-[ $? -ne 0 ] && apt update && apt install -y ssh
+[ $? != 0 ] && apt update && apt install -y ssh
 apt install sudo
 echo -e \root\\nroot\\n| passwd root &>/dev/null
 systemctl stop kubelet
