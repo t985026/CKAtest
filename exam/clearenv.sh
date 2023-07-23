@@ -10,6 +10,8 @@ alias kgd='kubectl get deployments'
 alias kns='kubens'
 alias kcx='kubectx'
 alias wkgp='watch kubectl get pod'
+alias cls='clear'
+
 
 
 
