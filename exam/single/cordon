@@ -1,0 +1,10 @@
+cluster=$(kubectl config view |grep 'cluster: ' | cut -d ':' -f 2)
+[ -f *.yaml ] && rm *.yaml
+echo 'remove all yaml' 
+
+## cordon & drain (4%)
+kubectl uncordon ${cluster}-worker
+kubectl uncordon ${cluster}-worker2
+
+
+
