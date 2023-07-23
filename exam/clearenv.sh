@@ -1,5 +1,18 @@
 #!/bin/bash
 cluster=$(kubectl config view |grep 'cluster: ' | cut -d ':' -f 2)
+alias k='kubectl'
+alias kg='kubectl get'
+alias ke='kubectl edit'
+alias kd='kubectl describe'
+alias kdd='kubectl delete'
+alias kgp='kubectl get pods'
+alias kgd='kubectl get deployments'
+alias kns='kubens'
+alias kcx='kubectx'
+alias wkgp='watch kubectl get pod'
+
+
+
 rm *.yaml &>/dev/null
 echo 'remove all yaml' 
 ### Pod Logs (5%)
@@ -76,5 +89,6 @@ kubectl create namespace echo 2>/dev/null;
 ## Service (7%)
 kubectl delete deploy front-end 2>/dev/null;
 kubectl delete svc front-end-svc 2>/dev/null;
-
 kubectl create deployment front-end --image=quay.io/cloudwalker/nginx 2>/dev/null;
+
+clear
