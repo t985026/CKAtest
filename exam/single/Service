@@ -1,0 +1,4 @@
+
+## Service (7%)
+kubectl delete deployment front-end
+kubectl create deployment front-end --image=quay.io/cloudwalker/nginx
