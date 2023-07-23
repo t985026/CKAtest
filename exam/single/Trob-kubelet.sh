@@ -4,5 +4,7 @@ which ssh &>/dev/null
 apt install sudo
 echo -e \root\\nroot\\n| passwd root &>/dev/null
 systemctl stop kubelet
-echo "127.0.0.1       localhost wk8s-node-0" | tee -a /etc/hosts 
-echo "127.0.0.1       localhost ek8s-node-1" | tee -a /etc/hosts 
+grep wk8s-node-0 /etc/hosts &>/dev/null
+[ $? != '0' ] && echo "127.0.0.1       localhost wk8s-node-0" | tee -a /etc/hosts 
+grep wk8s-node-1 /etc/hosts &>/dev/null
+[ $? != '0' ] && echo "127.0.0.1       localhost ek8s-node-1" | tee -a /etc/hosts 
