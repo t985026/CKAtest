@@ -61,3 +61,7 @@ echo -e \root\\nroot\\n| passwd root &>/dev/null
 echo "127.0.0.1       localhost wk8s-node-0" | tee -a /etc/hosts 
 echo "127.0.0.1       localhost ek8s-node-1" | tee -a /etc/hosts 
 
+### Storage PV (7%) 沒前置
+### NetworkPolicy (7%)
+kubectl create namespace internal 2>/dev/null
+
