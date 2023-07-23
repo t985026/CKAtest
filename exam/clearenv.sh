@@ -16,6 +16,7 @@ do
 done < rmpod.tmp
 rm rmpod.tmp
 
+### Pod Logs (5%)
 kubectl apply -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/F1-pod-log.yaml
 
 ### Check Ready Node (4%)
@@ -34,16 +35,13 @@ kubectl get pods -n kube-system |grep metrics-server
 [ -d /opt/KUTR00401/ ] && rm /opt/KUTR00401/* && touch /opt/KUTR00401/KURT00401.txt
 kubectl label node ${cluster}-worker2 name=cpu-loader
 
-
 kubectl run cpu1 --image=quay.io/cloudwalker/sre.base --restart=Never --labels=name=cpu-loader -- stress-ng --cpu 2  --timeout 600s
 
 
 ### Sidecar (7%)
-
 kubectl create -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/F6-pod-sidecar.yaml
 
 ## Deployment 應用 - Scale (4%)
-
 kubectl delete deploy presentation 2> /dev/null;
 kubectl delete deploy loadbalance 2> /dev/null;
 
@@ -54,16 +52,12 @@ kubectl create deployment loadbalance --image=registry.k8s.io/echoserver:1.10 --
 kubectl uncordon ${cluster}-worker
 kubectl uncordon ${cluster}-worker2
 
-
-## cordon & drain (4%)
-kubectl uncordon ${cluster}-worker
-kubectl uncordon ${cluster}-worker2
-
 ## Trobleshooting - kubelet 故障(2%?)
 which ssh &>/dev/null
 [ $? != 0 ] && apt update && apt install -y ssh
 apt install sudo
+echo -e \root\\nroot\\n| passwd root &>/dev/null
 
-echo "127.0.0.1       localhost wk8s-node-0" |sudo tee -a /etc/hosts 
-echo "127.0.0.1       localhost ek8s-node-1" |sudo tee -a /etc/hosts 
+echo "127.0.0.1       localhost wk8s-node-0" | tee -a /etc/hosts 
+echo "127.0.0.1       localhost ek8s-node-1" | tee -a /etc/hosts 
 
