@@ -67,5 +67,6 @@ kubectl create namespace internal 2>/dev/null
 kubectl create namespace my-app 2>/dev/null
 
 ## Service (7%)
-kubectl create deployment front-end --image=quay.io/cloudwalker/nginx
+kubectl create deployment front-end --image=quay.io/cloudwalker/nginx 2>/dev/null;
+
 
