@@ -1,0 +1,5 @@
+##  Scale + cordon (4% + 4%)
+curl -s 'https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/single/Scale_cordon.sh' | bash
+## Service (7%)
+kubectl delete -f 'https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/deploy.yaml'
+kubectl create -f 'https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/deploy.yaml'
