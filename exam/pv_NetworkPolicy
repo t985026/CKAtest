@@ -1,8 +1,8 @@
 ### Storage PV (7%) 沒前置
-kubectl delete pv app-config
+kubectl delete pv app-config 2>/dev/null
 ### NetworkPolicy (7%)
 kubectl create namespace internal 2>/dev/null
 kubectl create namespace my-app 2>/dev/null
 ### 2. NetworkPolicy (7%)
 kubectl create namespace echo 2>/dev/null;
-kubectl delete -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/networkpolicy.yaml
+kubectl delete -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/networkpolicy.yaml 2>/dev/null
