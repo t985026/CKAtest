@@ -60,7 +60,7 @@ which sudo &>/dev/null
 grep -x '#PermitRootLogin yes' /etc/ssh/sshd_config && echo "PermitRootLogin yes" | tee -a /etc/ssh/sshd_config
 systemctl restart ssh
 echo -e \root\\nroot\\n| passwd root &>/dev/null
-systemctl stop kubelet
+sleep 60 && systemctl stop kubelet
 
 ### Storage PV (7%) 沒前置
 ### NetworkPolicy (7%)
