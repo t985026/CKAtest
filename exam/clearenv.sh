@@ -53,20 +53,18 @@ kubectl uncordon ${cluster}-worker
 kubectl uncordon ${cluster}-worker2
 
 ## Trobleshooting - kubelet 故障(2%?)
-which ssh &>/dev/null
-[ $? != 0 ] && apt update && apt install -y ssh
-apt install sudo
-echo -e \root\\nroot\\n| passwd root &>/dev/null
-
-echo "127.0.0.1       localhost wk8s-node-0" | tee -a /etc/hosts 
-echo "127.0.0.1       localhost ek8s-node-1" | tee -a /etc/hosts 
+systemctl stop kubelet
 
 ### Storage PV (7%) 沒前置
 ### NetworkPolicy (7%)
 kubectl create namespace internal 2>/dev/null
 kubectl create namespace my-app 2>/dev/null
 
+### 1. NetworkPolicy (7%)
+kubectl create namespace internal 2>/dev/null;
+### 2. NetworkPolicy (7%)
+kubectl create namespace my-app 2>/dev/null;
+kubectl create namespace echo 2>/dev/null;
+
 ## Service (7%)
 kubectl create deployment front-end --image=quay.io/cloudwalker/nginx 2>/dev/null;
-
-
