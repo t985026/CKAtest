@@ -12,9 +12,6 @@ alias kcx='kubectx'
 alias wkgp='watch kubectl get pod'
 alias cls='clear'
 
-
-
-
 rm *.yaml &>/dev/null
 echo 'remove all yaml' 
 ### Pod Logs (5%)
@@ -30,6 +27,16 @@ do
 
 done < rmpod.tmp
 rm rmpod.tmp
+
+## Trobleshooting - kubelet 故障(2%?)
+which ssh sshd &>/dev/null
+[[ $? != 0 ]] && apt update && apt install -y ssh
+which sudo &>/dev/null
+[[ $? != 0 ]] && apt install sudo
+grep -x '#PermitRootLogin yes' /etc/ssh/sshd_config && echo "PermitRootLogin yes" | tee -a /etc/ssh/sshd_config
+systemctl restart ssh
+echo -e \root\\nroot\\n| passwd root &>/dev/null
+systemctl stop kubelet
 
 ### Pod Logs (5%)
 kubectl apply -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/F1-pod-log.yaml
@@ -66,16 +73,6 @@ kubectl create deployment loadbalance --image=registry.k8s.io/echoserver:1.10 --
 ## cordon & drain (4%)
 kubectl uncordon ${cluster}-worker
 kubectl uncordon ${cluster}-worker2
-
-## Trobleshooting - kubelet 故障(2%?)
-which ssh sshd &>/dev/null
-[[ $? != 0 ]] && apt update && apt install -y ssh
-which sudo &>/dev/null
-[[ $? != 0 ]] && apt install sudo
-grep -x '#PermitRootLogin yes' /etc/ssh/sshd_config && echo "PermitRootLogin yes" | tee -a /etc/ssh/sshd_config
-systemctl restart ssh
-echo -e \root\\nroot\\n| passwd root &>/dev/null
-sleep 60 && systemctl stop kubelet
 
 ### Storage PV (7%) 沒前置
 ### NetworkPolicy (7%)
