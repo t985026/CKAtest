@@ -7,7 +7,7 @@ alias k='kubectl'
 alias kg='kubectl get'
 alias kd='kubectl delete'
 alias kgp='kubectl get pods'
-alias kgd='kubectl get deployments' " | tee -a /etc/profile
+alias kgd='kubectl get deployments' " | tee -a /root/.bashrc
 
 
 rm *.yaml &>/dev/null
