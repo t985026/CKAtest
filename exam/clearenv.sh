@@ -51,6 +51,8 @@ echo 'Check Ready Node clear'
 ### NodeSelector (4%)
 kubectl label node ${cluster}-worker disk=spinning
 ### CPU (5%)
+[ ! -d /opt/KUTR00401/ ] && mkdir -p /opt/KUSC00401/
+[ -f /opt/KUTR00401/* ] && rm /opt/KUTR00401/*
 
 kubectl get pods -n kube-system |grep metrics-server
 [ $? != '0' ] && kubectl apply -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/metrics-server.yaml
