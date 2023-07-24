@@ -1,5 +1,5 @@
 #!/bin/bash
-source /etc/profile
+source /root/.bashrc
 cluster=$(kubectl config view |grep 'cluster: ' | cut -d ':' -f 2)
 grep -x "alias k='kubectl'" /etc/profile >/dev/null
 [[ $? != 0 ]] && echo "
@@ -8,7 +8,8 @@ alias kg='kubectl get'
 alias kd='kubectl delete'
 alias kgp='kubectl get pods'
 alias kgd='kubectl get deployments'
-alias cls='clear'" | tee -a /root/.bashrc
+alias cls='clear' 
+alias ll='ls -alh'"| tee -a /root/.bashrc
 
 
 rm *.yaml &>/dev/null
