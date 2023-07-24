@@ -95,5 +95,8 @@ kubectl create namespace echo 2>/dev/null;
 kubectl delete deploy front-end 2>/dev/null;
 kubectl delete svc front-end-svc 2>/dev/null;
 kubectl create deployment front-end --image=quay.io/cloudwalker/nginx 2>/dev/null;
+### RBAC (Role-based Access Control) (4%) 
+kubectl delete ns app-team1 2>/dev/null;
+kubectl create ns app-team1
 
 clear
