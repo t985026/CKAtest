@@ -87,6 +87,8 @@ kubectl uncordon ${cluster}-worker
 kubectl uncordon ${cluster}-worker2
 
 ### Storage PV (7%) 沒前置
+kubectl delete -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/app-config-pv 2>/dev/null
+
 ### NetworkPolicy (7%)
 kubectl create namespace internal 2>/dev/null
 kubectl create namespace my-app 2>/dev/null
