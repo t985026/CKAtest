@@ -18,6 +18,7 @@ kubectl label node ${cluster}-worker2 name=cpu-loader
 
 # F6 Sidecar (7%)
 kubectl apply -f https://raw.githubusercontent.com/t985026/CKAtest/main/exam/yaml/F6-pod-sidecar.yaml
+
 # F7
 
 # F8
