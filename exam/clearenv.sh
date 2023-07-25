@@ -14,6 +14,8 @@ alias ll='ls -alh'"| tee -a /root/.bashrc
 
 rm *.yaml &>/dev/null
 echo 'remove all yaml' 
+kubectl delete pod big-corp-app --force
+
 ## Deployment - Scale (4%) 前置
 kubectl delete deploy presentation 2> /dev/null;
 kubectl delete deploy loadbalancer 2> /dev/null;
