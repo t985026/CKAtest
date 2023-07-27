@@ -108,7 +108,7 @@ echo "=== clean cordon & drain done ==="
 
 ### Storage PV (7%) 沒前置
 echo "=== clean Storage PV ==="
-kubectl delete -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/app-config-pv 2>/dev/null
+kubectl delete -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/app-config-pv.yaml 2>/dev/null
 echo "=== clean Storage PV done ==="
 
 ### NetworkPolicy (7%)
