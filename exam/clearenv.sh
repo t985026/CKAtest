@@ -111,8 +111,9 @@ echo "=== clean Deployment - Scale done ==="
 
 ## cordon & drain (4%)
 echo "=== clean cordon & drain ==="
-kubectl uncordon ${cluster}-worker
-kubectl uncordon ${cluster}-worker2
+kubectl uncordon ${cluster}-control-plane &>/dev/null
+kubectl uncordon ${cluster}-worker &>/dev/null
+kubectl uncordon ${cluster}-worker2 &>/dev/null
 echo "=== clean cordon & drain done ==="
 
 ### NetworkPolicy (7%)
