@@ -8,6 +8,8 @@ alias kg='kubectl get'
 alias kd='kubectl delete'
 alias kgp='kubectl get pods'
 alias kgd='kubectl get deployments'
+alias ka='kubectl apply'
+alias kc='kubectl create'
 alias cls='clear' 
 alias ll='ls -alh'"| tee -a /root/.bashrc
 
