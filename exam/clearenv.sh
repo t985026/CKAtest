@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cluster=$(kubectl config view |grep 'cluster: ' | cut -d ':' -f 2)
-grep -x "alias k='kubectl'" /etc/profile >/dev/null
+grep -x "alias k='kubectl'" /root/.bashrc >/dev/null
 [[ $? != 0 ]] && echo "
 alias k='kubectl'
 alias kg='kubectl get'
