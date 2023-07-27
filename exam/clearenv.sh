@@ -1,5 +1,5 @@
 #!/bin/bash
-source /root/.bashrc
+
 cluster=$(kubectl config view |grep 'cluster: ' | cut -d ':' -f 2)
 grep -x "alias k='kubectl'" /etc/profile >/dev/null
 [[ $? != 0 ]] && echo "
@@ -12,7 +12,7 @@ alias ka='kubectl apply'
 alias kc='kubectl create'
 alias cls='clear' 
 alias ll='ls -alh'"| tee -a /root/.bashrc
-
+source /root/.bashrc
 echo 'remove all yaml' 
 rm *.yaml &>/dev/null
 
