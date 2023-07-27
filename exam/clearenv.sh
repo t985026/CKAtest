@@ -38,6 +38,11 @@ echo 'Pod Logs clear'
 
 kubectl get pod | tail -n +2 | cut -d ' ' -f 1 > rmpod.tmp
 
+### Storage PV (7%) 沒前置
+echo "=== clean Storage PV ==="
+kubectl delete -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/app-config-pv.yaml 2>/dev/null
+echo "=== clean Storage PV done ==="
+
 while read pod
 do
   kubectl delete pod ${pod}
@@ -107,11 +112,6 @@ echo "=== clean cordon & drain ==="
 kubectl uncordon ${cluster}-worker
 kubectl uncordon ${cluster}-worker2
 echo "=== clean cordon & drain done ==="
-
-### Storage PV (7%) 沒前置
-echo "=== clean Storage PV ==="
-kubectl delete -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/app-config-pv.yaml 2>/dev/null
-echo "=== clean Storage PV done ==="
 
 ### NetworkPolicy (7%)
 echo "=== clean NetworkPolicy ==="
