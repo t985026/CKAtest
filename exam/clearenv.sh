@@ -16,7 +16,6 @@ source /root/.bashrc
 echo 'remove all yaml' 
 rm *.yaml &>/dev/null
 
-kubectl delete pod web-server --force &> /dev/null;
 kubectl delete pod big-corp-app --force &> /dev/null;
 
 ## Deployment - Scale (4%) 前置
@@ -40,11 +39,10 @@ echo 'Pod Logs clear'
 kubectl get pod | tail -n +2 | cut -d ' ' -f 1 > rmpod.tmp
 
 ### Storage PV (7%) 沒前置
-echo "=== clean Storage PV ==="
+echo "=== clean Storage PVC ==="
 kubectl delete web-server --force  2>/dev/null
-kubectl delete -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/pvc-pv-volume 2>/dev/null
-kubectl delete -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/app-config-pv.yaml 2>/dev/null
-echo "=== clean Storage PV done ==="
+kubectl delete -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/pvc-pv-volume --force 2>/dev/null
+echo "=== clean Storage PVC done ==="
 
 while read pod
 do
