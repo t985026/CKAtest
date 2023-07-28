@@ -16,6 +16,7 @@ source /root/.bashrc
 echo 'remove all yaml' 
 rm *.yaml &>/dev/null
 
+kubectl delete pod web-server-volume --force 
 kubectl delete pod big-corp-app --force &> /dev/null;
 
 ## Deployment - Scale (4%) 前置
