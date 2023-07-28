@@ -40,16 +40,19 @@ kubectl apply -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/ya
 
 
 ### Check Ready Node (4%)
+echo "=== clean Check Ready Node ==="
 [ ! -d /opt/KUSC00402/ ] && mkdir -p /opt/KUSC00402/
-[ -f /opt/KUSC00402/* ] && rm /opt/KUSC00402/* 2>/dev/null;
-[ $? == 0 ] && echo === clean Check Ready Node done ===
+[ -f /opt/KUSC00402/* ] && rm /opt/KUSC00402/*
+echo 'Check Ready Node clear'
+echo "=== clean Check Ready Node done ==="
 
 ### NodeSelector (4%)
+echo "=== clean NodeSelector ==="
 kubectl label node ${cluster}-worker disk=spinning
-
 ### CPU (5%)
-[ -f /opt/KUTR00401/* ] && rm /opt/KUTR00401/* 2>/dev/null
+[ -f /opt/KUTR00401/* ] && rm /opt/KUTR00401/*
 [ ! -d /opt/KUTR00401/ ] && mkdir -p /opt/KUSC00401/
+
 
 kubectl get pods -n kube-system |grep metrics-server
 [ $? != '0' ] && kubectl apply -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/metrics-server.yaml
@@ -57,15 +60,12 @@ kubectl get pods -n kube-system |grep metrics-server
 [ -d /opt/KUTR00401/ ] && rm /opt/KUTR00401/* && touch /opt/KUTR00401/KURT00401.txt
 kubectl label node ${cluster}-worker2 name=cpu-loader
 
-### 6. Multi-container (4%)
-kubectl delete pod kucc8 &>/dev/null
-[ $? == 0 ] && echo kucc8 pod delete
-kubectl delete pod kucc1 &>/dev/null
-[ $? == 0 ] && echo ===kucc1 pod delete===
+kubectl run cpu1 --image=quay.io/cloudwalker/sre.base --restart=Never --labels=name=cpu-loader -- stress-ng --cpu 2  --timeout 2400s
+echo "=== clean NodeSelector done ==="
 
 ### Sidecar (7%)
 echo "=== clean Sidecar ==="
-kubectl replace -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/F6-pod-sidecar.yaml --force
+kubectl create -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/F6-pod-sidecar.yaml
 echo "=== clean Sidecar done ==="
 
 
