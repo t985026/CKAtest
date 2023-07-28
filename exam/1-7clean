@@ -40,3 +40,15 @@ kubectl get pods -n kube-system |grep metrics-server
 [ -d /opt/KUTR00401/ ] && rm /opt/KUTR00401/* && touch /opt/KUTR00401/KURT00401.txt
 kubectl label node ${cluster}-worker2 name=cpu-loader
 
+### 6. Multi-container (4%)
+kubectl delete pod kucc8 &>/dev/null
+[ $? != '0' ] && echo kucc8 pod delete
+kubectl delete pod kucc1 &>/dev/null
+[ $? != '0' ] && echo ===kucc1 pod delete===
+
+### Sidecar (7%)
+echo "=== clean Sidecar ==="
+kubectl create -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/F6-pod-sidecar.yaml
+echo "=== clean Sidecar done ==="
+
+
