@@ -135,8 +135,8 @@ echo "=== clean Service done ==="
 
 ### RBAC (Role-based Access Control) (4%) 
 echo "=== clean RBAC ==="
-kubectl delete ns app-team1 2>/dev/null;
-kubectl create ns app-team1
+kubectl replace -f ns app-team1 2>/dev/null;
+kubectl replace -f ns app-team1 2>/dev/null;
 echo "=== clean RBAC done ==="
 ### 13. RBAC (Role-based Access Control) (4%)
 kubectl delete ClusterRole deployment-clusterrole 2>/dev/null;
