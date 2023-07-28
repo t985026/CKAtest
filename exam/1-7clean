@@ -1,0 +1,42 @@
+cluster=$(kubectl config view |grep 'cluster: ' | cut -d ':' -f 2)
+grep -x "alias k='kubectl'" /root/.bashrc >/dev/null
+[[ $? != 0 ]] && echo "
+alias k='kubectl'
+alias kg='kubectl get'
+alias kd='kubectl delete'
+alias kgp='kubectl get pods'
+alias kgd='kubectl get deployments'
+alias ka='kubectl apply'
+alias kc='kubectl create'
+alias cls='clear' 
+alias ll='ls -alh'"| tee -a /root/.bashrc
+source /root/.bashrc
+echo 'remove all yaml' 
+rm *.yaml &>/dev/null
+[ $? == 0 ] && echo remove all yaml done
+### Pod Logs (5%)
+echo "=== clean Pod Logs ==="
+[ ! -d /opt/KUTR00101 ] && mkdir -p /opt/KUTR00101
+[ -f /opt/KUTR00101/bar ] && rm /opt/KUTR00101/*
+[ $? == 0 ] &&  echo 'Pod Logs clear'
+
+### Check Ready Node (4%)
+echo "=== clean Check Ready Node ==="
+[ ! -d /opt/KUSC00402/ ] && mkdir -p /opt/KUSC00402/
+[ -f /opt/KUSC00402/* ] && rm /opt/KUSC00402/*
+[ $? == 0 ] && echo "=== clean Check Ready Node done ==="
+
+### NodeSelector (4%)
+echo "=== clean NodeSelector ==="
+kubectl label node ${cluster}-worker disk=spinning
+
+### CPU (5%)
+[ -f /opt/KUTR00401/* ] && rm /opt/KUTR00401/*
+[ ! -d /opt/KUTR00401/ ] && mkdir -p /opt/KUSC00401/
+
+kubectl get pods -n kube-system |grep metrics-server
+[ $? != '0' ] && kubectl apply -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/metrics-server.yaml
+
+[ -d /opt/KUTR00401/ ] && rm /opt/KUTR00401/* && touch /opt/KUTR00401/KURT00401.txt
+kubectl label node ${cluster}-worker2 name=cpu-loader
+
