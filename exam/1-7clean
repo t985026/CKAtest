@@ -15,8 +15,8 @@ echo 'remove all yaml'
 rm *.yaml &>/dev/null
 [ $? == 0 ] && echo remove all yaml done
 
-kubectl delete pods cpu1
-kubectl delete pods big-corp-app
+kubectl delete pods cpu1 --force
+kubectl delete pods big-corp-app --force
 
 
 ## Trobleshooting - kubelet 故障(2%?)
