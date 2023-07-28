@@ -124,8 +124,8 @@ kubectl create namespace my-app 2>/dev/null
 kubectl create namespace internal 2>/dev/null;
 
 ### 2. NetworkPolicy (7%)
-kubectl create namespace my-app 2>/dev/null;
-kubectl create namespace echo 2>/dev/null;
+kubectl replace -f namespace my-app 2>/dev/null;
+kubectl replace -f namespace echo 2>/dev/null;
 echo "=== clean NetworkPolicy done ==="
 
 ## Service (7%)
