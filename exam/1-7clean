@@ -37,7 +37,7 @@ echo "=== clean Trobleshooting - kubelet done ==="
 
 ### Check Ready Node (4%)
 [ ! -d /opt/KUSC00402/ ] && mkdir -p /opt/KUSC00402/
-[ -f /opt/KUSC00402/* ] && rm /opt/KUSC00402/*
+[ -f /opt/KUSC00402/* ] && rm /opt/KUSC00402/* 2>/dev/null;
 [ $? == 0 ] && echo === clean Check Ready Node done ===
 
 ### NodeSelector (4%)
