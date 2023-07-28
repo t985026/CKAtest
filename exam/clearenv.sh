@@ -30,11 +30,6 @@ kubectl delete deploy front-end 2>/dev/null;
 kubectl delete svc front-end-svc 2>/dev/null;
 echo "=== clean Service done ==="
 
-### Pod Logs (5%)
-echo "=== clean Pod Logs ==="
-[ ! -d /opt/KUTR00101 ] && mkdir -p /opt/KUTR00101
-[ -f /opt/KUTR00101/bar ] && rm /opt/KUTR00101/*
-echo 'Pod Logs clear'
 
 kubectl get pod | tail -n +2 | cut -d ' ' -f 1 > rmpod.tmp
 
@@ -68,10 +63,15 @@ echo -e \root\\nroot\\n| passwd root &>/dev/null
 systemctl stop kubelet
 echo "=== clean Trobleshooting - kubelet done ==="
 
+
 ### Pod Logs (5%)
 echo "=== clean Pod Logs ==="
+[ ! -d /opt/KUTR00101 ] && mkdir -p /opt/KUTR00101
+[ -f /opt/KUTR00101/bar ] && rm /opt/KUTR00101/*
+echo 'Pod Logs clear'
 kubectl apply -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/F1-pod-log.yaml
 echo "=== clean Pod Logs done ==="
+
 
 ### Check Ready Node (4%)
 echo "=== clean Check Ready Node ==="
