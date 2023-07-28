@@ -33,8 +33,8 @@ echo "=== clean Trobleshooting - kubelet done ==="
 
 ### Pod Logs (5%)
 echo "=== clean Pod Logs ==="
-[ ! -d /opt/KUTR00101 ] && mkdir -p /opt/KUTR00101
-[ -f /opt/KUTR00101/bar ] && rm /opt/KUTR00101/*
+[ ! -d /opt/KUTR00101 ] && mkdir -p /opt/KUTR00101 
+[ -f /opt/KUTR00101/bar ] && rm /opt/KUTR00101/* &>/dev/null
 [ $? == 0 ] &&  echo 'Pod Logs clear'
 
 ### Check Ready Node (4%)
