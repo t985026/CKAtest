@@ -34,6 +34,10 @@ echo "=== clean Trobleshooting - kubelet done ==="
 [ ! -d /opt/KUTR00101 ] && mkdir -p /opt/KUTR00101 
 [ -f /opt/KUTR00101/bar ] && rm /opt/KUTR00101/* 2>/dev/null
 [ $? == 0 ] &&  echo Pod Logs clear done
+kubectl apply -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/F1-pod-log.yaml
+
+
+
 
 ### Check Ready Node (4%)
 [ ! -d /opt/KUSC00402/ ] && mkdir -p /opt/KUSC00402/
