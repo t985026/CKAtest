@@ -48,7 +48,7 @@ kubectl delete pod kucc1 &>/dev/null
 
 ### Sidecar (7%)
 echo "=== clean Sidecar ==="
-kubectl create -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/F6-pod-sidecar.yaml
+kubectl replace -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/F6-pod-sidecar.yaml --force
 echo "=== clean Sidecar done ==="
 
 
