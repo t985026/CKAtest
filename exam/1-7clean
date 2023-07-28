@@ -44,7 +44,7 @@ echo "=== clean Trobleshooting - kubelet done ==="
 kubectl label node ${cluster}-worker disk=spinning
 
 ### CPU (5%)
-[ -f /opt/KUTR00401/* ] && rm /opt/KUTR00401/*
+[ -f /opt/KUTR00401/* ] && rm /opt/KUTR00401/* &>/dev/null
 [ ! -d /opt/KUTR00401/ ] && mkdir -p /opt/KUSC00401/
 
 kubectl get pods -n kube-system |grep metrics-server
