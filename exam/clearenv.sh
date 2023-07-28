@@ -16,7 +16,8 @@ source /root/.bashrc
 echo 'remove all yaml' 
 rm *.yaml &>/dev/null
 
-kubectl delete pod big-corp-app --force
+kubectl delete pod web-server --force &> /dev/null;
+kubectl delete pod big-corp-app --force &> /dev/null;
 
 ## Deployment - Scale (4%) 前置
 echo "=== clean Deployment - Scale ==="
@@ -139,6 +140,7 @@ echo "=== clean RBAC ==="
 kubectl delete ns app-team1 2>/dev/null;
 kubectl create ns app-team1
 echo "=== clean RBAC done ==="
-
-
+### 13. RBAC (Role-based Access Control) (4%)
+kubectl delete ClusterRole deployment-clusterrole 2>/dev/null;
+kubectl delete sa cicd-token 2>/dev/null;
 clear
