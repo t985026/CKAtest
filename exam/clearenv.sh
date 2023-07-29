@@ -18,6 +18,7 @@ rm *.yaml &>/dev/null
 
 kubectl delete pod web-server-volume --force &> /dev/null;
 kubectl delete pod big-corp-app --force &> /dev/null;
+kubectl delete web-server --force  2>/dev/null
 
 ## Deployment - Scale (4%) 前置
 echo "=== clean Deployment - Scale ==="
@@ -31,19 +32,16 @@ kubectl delete deploy front-end 2>/dev/null;
 kubectl delete svc front-end-svc 2>/dev/null;
 echo "=== clean Service done ==="
 
-
-kubectl get pod | tail -n +2 | cut -d ' ' -f 1 > rmpod.tmp
-
 ### Storage PV (7%) 沒前置
 echo "=== clean Storage PVC ==="
-kubectl delete web-server --force  2>/dev/null
-kubectl delete pv --all
+kubectl delete pvc --all
 kubectl delete -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/pvc-pv-volume --force 2>/dev/null
 echo "=== clean Storage PVC done ==="
 
+kubectl get pod | tail -n +2 | cut -d ' ' -f 1 > rmpod.tmp
 while read pod
 do
-  kubectl delete pod ${pod}
+  kubectl delete pod "${pod}"
 
 done < rmpod.tmp
 rm rmpod.tmp
@@ -60,7 +58,7 @@ systemctl restart ssh
 grep wk8s-node-0 /etc/hosts &>/dev/null
 [ $? != 0 ] && echo "127.0.0.1       localhost wk8s-node-0" | tee -a /etc/hosts 
 grep ek8s-node-1 /etc/hosts &>/dev/null
-[ $? != 0 ] && echo "172.18.0.3       localhost ek8s-node-1" | tee -a /etc/hosts 
+[ $? != 0 ] && echo "127.0.0.1        localhost ek8s-node-1" | tee -a /etc/hosts 
 echo -e \root\\nroot\\n| passwd root &>/dev/null
 systemctl stop kubelet
 echo "=== clean Trobleshooting - kubelet done ==="
@@ -139,7 +137,7 @@ echo "=== clean Service done ==="
 ### RBAC (Role-based Access Control) (4%) 
 echo "=== clean RBAC ==="
 kubectl delete -f ns app-team1 2>/dev/null;
-kubectl create -f ns app-team1 2>/dev/null;
+kubectl create ns app-team1 2>/dev/null;
 kubectl delete ClusterRole deployment-clusterrole 2>/dev/null;
 kubectl delete sa cicd-token 2>/dev/null;
 echo "=== clean RBAC done ==="
