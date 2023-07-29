@@ -1,20 +1,24 @@
 #!/bin/bash
-source /root/.bashrc
+
 cluster=$(kubectl config view |grep 'cluster: ' | cut -d ':' -f 2)
-grep -x "alias k='kubectl'" /etc/profile >/dev/null
+grep -x "alias k='kubectl'" /root/.bashrc >/dev/null
 [[ $? != 0 ]] && echo "
 alias k='kubectl'
 alias kg='kubectl get'
 alias kd='kubectl delete'
 alias kgp='kubectl get pods'
 alias kgd='kubectl get deployments'
+alias ka='kubectl apply'
+alias kc='kubectl create'
 alias cls='clear' 
 alias ll='ls -alh'"| tee -a /root/.bashrc
-
+source /root/.bashrc
 echo 'remove all yaml' 
 rm *.yaml &>/dev/null
 
-kubectl delete pod big-corp-app --force
+kubectl delete pod web-server-volume --force &> /dev/null;
+kubectl delete pod big-corp-app --force &> /dev/null;
+kubectl delete web-server --force  2>/dev/null
 
 ## Deployment - Scale (4%) 前置
 echo "=== clean Deployment - Scale ==="
@@ -28,17 +32,16 @@ kubectl delete deploy front-end 2>/dev/null;
 kubectl delete svc front-end-svc 2>/dev/null;
 echo "=== clean Service done ==="
 
-### Pod Logs (5%)
-echo "=== clean Pod Logs ==="
-[ ! -d /opt/KUTR00101 ] && mkdir -p /opt/KUTR00101
-[ -f /opt/KUTR00101/bar ] && rm /opt/KUTR00101/*
-echo 'Pod Logs clear'
+### Storage PV (7%) 沒前置
+echo "=== clean Storage PVC ==="
+kubectl delete pvc --all
+kubectl delete -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/pvc-pv-volume --force 2>/dev/null
+echo "=== clean Storage PVC done ==="
 
 kubectl get pod | tail -n +2 | cut -d ' ' -f 1 > rmpod.tmp
-
 while read pod
 do
-  kubectl delete pod ${pod}
+  kubectl delete pod "${pod}"
 
 done < rmpod.tmp
 rm rmpod.tmp
@@ -55,15 +58,20 @@ systemctl restart ssh
 grep wk8s-node-0 /etc/hosts &>/dev/null
 [ $? != 0 ] && echo "127.0.0.1       localhost wk8s-node-0" | tee -a /etc/hosts 
 grep ek8s-node-1 /etc/hosts &>/dev/null
-[ $? != 0 ] && echo "172.18.0.3       localhost ek8s-node-1" | tee -a /etc/hosts 
+[ $? != 0 ] && echo "127.0.0.1        localhost ek8s-node-1" | tee -a /etc/hosts 
 echo -e \root\\nroot\\n| passwd root &>/dev/null
 systemctl stop kubelet
 echo "=== clean Trobleshooting - kubelet done ==="
 
+
 ### Pod Logs (5%)
 echo "=== clean Pod Logs ==="
+[ ! -d /opt/KUTR00101 ] && mkdir -p /opt/KUTR00101
+[ -f /opt/KUTR00101/bar ] && rm /opt/KUTR00101/*
+echo 'Pod Logs clear'
 kubectl apply -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/F1-pod-log.yaml
 echo "=== clean Pod Logs done ==="
+
 
 ### Check Ready Node (4%)
 echo "=== clean Check Ready Node ==="
@@ -102,26 +110,23 @@ echo "=== clean Deployment - Scale done ==="
 
 ## cordon & drain (4%)
 echo "=== clean cordon & drain ==="
-kubectl uncordon ${cluster}-worker
-kubectl uncordon ${cluster}-worker2
+kubectl uncordon ${cluster}-control-plane &>/dev/null
+kubectl uncordon ${cluster}-worker &>/dev/null
+kubectl uncordon ${cluster}-worker2 &>/dev/null
 echo "=== clean cordon & drain done ==="
-
-### Storage PV (7%) 沒前置
-echo "=== clean Storage PV ==="
-kubectl delete -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/app-config-pv 2>/dev/null
-echo "=== clean Storage PV done ==="
 
 ### NetworkPolicy (7%)
 echo "=== clean NetworkPolicy ==="
+kubectl delete networkpolicy -n internal allow-port-from-namespace 2>/dev/null;
+kubectl delete networkpolicy -n echo allow-port-from-namespace 2>/dev/null;
 kubectl create namespace internal 2>/dev/null
 kubectl create namespace my-app 2>/dev/null
-
 ### 1. NetworkPolicy (7%)
 kubectl create namespace internal 2>/dev/null;
 
 ### 2. NetworkPolicy (7%)
-kubectl create namespace my-app 2>/dev/null;
-kubectl create namespace echo 2>/dev/null;
+kubectl replace -f namespace my-app 2>/dev/null;
+kubectl replace -f namespace echo 2>/dev/null;
 echo "=== clean NetworkPolicy done ==="
 
 ## Service (7%)
@@ -131,9 +136,9 @@ echo "=== clean Service done ==="
 
 ### RBAC (Role-based Access Control) (4%) 
 echo "=== clean RBAC ==="
-kubectl delete ns app-team1 2>/dev/null;
-kubectl create ns app-team1
+kubectl delete -f ns app-team1 2>/dev/null;
+kubectl create ns app-team1 2>/dev/null;
+kubectl delete ClusterRole deployment-clusterrole 2>/dev/null;
+kubectl delete sa cicd-token 2>/dev/null;
 echo "=== clean RBAC done ==="
-
-
 clear
