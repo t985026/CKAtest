@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: big-corp-app
+spec:
+  containers:
+  - name: monitor
+    image: quay.io/prometheus/busybox
+    command: ["sh", "-c"]
+    args: ["while true; do echo $(date) >> /var/log/big-corp-app.log; sleep 1; done"]
