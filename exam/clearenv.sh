@@ -36,8 +36,8 @@ kubectl get pod | tail -n +2 | cut -d ' ' -f 1 > rmpod.tmp
 
 ### Storage PV (7%) 沒前置
 echo "=== clean Storage PVC ==="
-kubectl delete pv --all
 kubectl delete web-server --force  2>/dev/null
+kubectl delete pv --all
 kubectl delete -f https://raw.githubusercontent.com/f0603026/CKAtest/main/exam/yaml/pvc-pv-volume --force 2>/dev/null
 echo "=== clean Storage PVC done ==="
 
