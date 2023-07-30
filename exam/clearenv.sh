@@ -18,7 +18,7 @@ rm *.yaml &>/dev/null
 
 kubectl delete pod web-server-volume --force &> /dev/null;
 kubectl delete pod big-corp-app --force &> /dev/null;
-kubectl delete web-server --force  2>/dev/null
+kubectl delete pod web-server --force  2>/dev/null
 
 ## Deployment - Scale (4%) 前置
 echo "=== clean Deployment - Scale ==="
