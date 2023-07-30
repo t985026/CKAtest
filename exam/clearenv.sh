@@ -13,8 +13,9 @@ alias kc='kubectl create'
 alias cls='clear' 
 alias ll='ls -alh'"| tee -a /root/.bashrc
 source /root/.bashrc
-echo 'remove all yaml' 
+echo ==ailas set===
 rm *.yaml &>/dev/null
+echo 'remove all yaml' 
 
 kubectl delete pod web-server-volume --force &> /dev/null;
 kubectl delete pod big-corp-app --force &> /dev/null;
